@@ -1,5 +1,5 @@
 {
-  "id":"aren_yandex","title":"MGU Yandex Navigation","version":"0.2.1",
+  "id":"aren_yandex","title":"MGU Yandex Navigation","version":"0.2.2",
   "description":"Экспериментальные карты Яндекса без CarPlay: адреса, маршрут, штатный GPS. Нужны собственные API-ключи. Не испытано на автомобиле.",
   "vendor":"MGU Yandex Navigation contributors","loggingId":"YNDX","mguHmi":["ID7"],
   "signals":{
@@ -7,7 +7,7 @@
     "de.bmw.infotainment.vehicle.Vehicle2":{"_optional":"Скорость автомобиля","statusCarSpeed2":"rs"}
   },
   "screens":[
-    {"name":"MAIN","kind":"canvas","title":"Яндекс · MGU · 0.2.1","buttons":[["BTN_SEARCH","Найти"],["BTN_ROUTE","Маршрут"],["BTN_LOCATE","Моя позиция"],["BTN_MINUS","−"],["BTN_PLUS","+"],["BTN_MENU","Меню"]]},
+    {"name":"MAIN","kind":"canvas","title":"Яндекс · MGU · 0.2.2","buttons":[["BTN_SEARCH","Найти"],["BTN_ROUTE","Маршрут"],["BTN_LOCATE","Моя позиция"],["BTN_MINUS","−"],["BTN_PLUS","+"],["BTN_MENU","Меню"]]},
     {"name":"RESULTS","kind":"menu","title":"Выберите адрес","items":[["button","RESULT_0",""],["button","RESULT_1",""],["button","RESULT_2",""],["button","RESULT_3",""],["button","RESULT_4",""]]},
     {"name":"MENU","kind":"menu","title":"Настройки Яндекс Карт","settings":true,"items":[
       ["button","KEY_STATIC","Ключ Static API"],["button","KEY_GEOCODER","Ключ Геокодера"],["button","KEY_ROUTER","Ключ маршрутов"],
