@@ -37,7 +37,11 @@ const tar=require(js+'/tar'),sources=require(js+'/sources'),catalog=require(js+'
     const src=await sources.repoCatalog(rel=>Promise.resolve().then(()=>fs.readFileSync(path.resolve(root,rel))),null,null);
     assert.strictEqual(src.components.length,1,JSON.stringify(src.skipped));
     assert(!src.skipped||src.skipped.length===0,JSON.stringify(src.skipped));
-    assert(src.components[0].script.python==='tools/build.py');
+    // The folder reader prefers catalog.json at the root, so inspect the repo-tree layout separately.
+    assert.strictEqual(src.components[0].artifact.sha256, c.artifact.sha256);
+    const repoTree=await sources.repoCatalog(rel=>Promise.resolve(fs.readFileSync(path.join(root,rel))),null,null);
+    assert.strictEqual(repoTree.components.length,1,JSON.stringify(repoTree.skipped));
+    assert(repoTree.components[0].script && repoTree.components[0].script.python==='tools/build.py');
     console.log(JSON.stringify({suite:'MGU Store upstream package and USB/source readers',node:process.version,
         artifact:entry.artifact.name,bytes:raw.length,sha256:c.artifact.sha256,members:members.length,
         packageParsed:true,usbCatalogParsed:true,usbArtifactVerified:true,sourceCatalogParsed:true,
