@@ -7,14 +7,14 @@ if(!store){console.error('Usage: node tests/store.js /path/to/mgu-store');proces
 const js=path.resolve(store,'native/mgu-updater/js');
 const tar=require(js+'/tar'),sources=require(js+'/sources'),catalog=require(js+'/catalog');
 (async()=>{
-    const raw=fs.readFileSync(root+'/dist/aren_yandex@0.2.0.tgz');
+    const raw=fs.readFileSync(root+'/dist/aren_yandex@0.2.1.tgz');
     const members=await tar.untgz(raw,20*1024*1024),info=sources.packageInfo(members);
-    assert.strictEqual(info.pkg.name,'aren_yandex');assert.strictEqual(info.pkg.version,'0.2.0');
+    assert.strictEqual(info.pkg.name,'aren_yandex');assert.strictEqual(info.pkg.version,'0.2.1');
     assert.deepEqual(info.hmi,['ID7']);assert(info.icon&&info.icon.packaged);assert(info.title.includes('Yandex'));
     assert(members.some(m=>m.name==='package/'+info.pkg.main));
     assert(!members.some(m=>/node_modules\/oap-sdk|yandex-keys\.json|\.pem$|\.key$/.test(m.name)));
     assert(members.some(m=>m.name.endsWith('/mgu.js')&&m.data.toString().includes("require('oap-sdk')")));
-    const entry=sources.packageEntry(members,raw,{url:'aren_yandex@0.2.0.tgz'},'tgz');
+    const entry=sources.packageEntry(members,raw,{url:'aren_yandex@0.2.1.tgz'},'tgz');
     assert.strictEqual(entry.id,'aren_yandex');assert.strictEqual(entry.artifact.size,raw.length);
     const reader=sources.reader({type:'usb',root:root+'/dist/usb/mgu-repo/mgu-yandex-navigation'},{});
     const cat=await reader.catalog();assert.strictEqual(cat.components.length,1);
