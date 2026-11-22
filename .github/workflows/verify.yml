@@ -5,14 +5,14 @@ on:
     branches: [main]
   pull_request:
 permissions:
-  contents: read
+  contents: write
 jobs:
   host-checks:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          persist-credentials: false
+          persist-credentials: true
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: robertnisipeanu/mgu-store
@@ -28,8 +28,32 @@ jobs:
         with:
           name: MGU-Yandex-Navigation-experimental
           path: |
-            dist/aren_yandex@0.2.1.tgz
+            dist/aren_yandex@0.2.2.tgz
             dist/catalog.json
             dist/SHA256SUMS
             dist/usb
             docs/test-results
+
+      - name: Publish verified 0.2.2 package to MGU Store HTTPS source
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          cp dist/aren_yandex@0.2.2.tgz ./aren_yandex@0.2.2.tgz
+          python3 - <<'PY'
+          import json, hashlib
+          from pathlib import Path
+          data=Path("aren_yandex@0.2.2.tgz").read_bytes()
+          doc=json.loads(Path("dist/catalog.json").read_text())
+          item=doc["components"][0]
+          assert item["version"] == "0.2.2"
+          assert item["artifact"]["size"] == len(data)
+          assert item["artifact"]["sha256"] == hashlib.sha256(data).hexdigest()
+          item["artifact"]["url"]="https://raw.githubusercontent.com/arenaren999/mgu-yandex-navigation/main/aren_yandex@0.2.2.tgz"
+          Path("catalog.json").write_text(json.dumps(doc,ensure_ascii=False,indent=2)+"\\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add catalog.json aren_yandex@0.2.2.tgz
+          if ! git diff --cached --quiet; then
+            git commit -m "build: publish verified MGU Yandex 0.2.2 package"
+            git push origin HEAD:main
+          fi
