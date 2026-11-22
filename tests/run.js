@@ -48,7 +48,7 @@ test('zoom change fetches a fresh map immediately without waiting for throttle',
 });
 test('static map selects documented driving map style',()=>{
     const link=api.mapURL(key,a,{zoom:15});
-    assert.strictEqual(new URL(link).searchParams.get('maptype'),'driving');
+    assert.strictEqual(require('url').parse(link, true).query.maptype,'driving');
 });
 test('old map response cannot overwrite a changed destination',async()=>{const d=deferred(),x=model({map:()=>d.promise});const pending=x.m.refreshMap();x.m.select(c);d.resolve(Buffer.alloc(0));await pending;assert.strictEqual(x.m.image,null);assert(!x.m.mapBusy);});
 test('map failure clears busy state and enforces 429 cooldown',async()=>{const x=model({map:async()=>{const e=new Error();e.code='HTTP_429';throw e;}});await x.m.refreshMap();assert(!x.m.mapBusy);assert.strictEqual(x.m.mapDue,70000);assert(/минуту/.test(x.m.status));});
