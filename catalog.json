@@ -4,22 +4,23 @@
     {
       "id": "aren_yandex",
       "kind": "app",
+      "version": "0.2.2",
       "title": "MGU Yandex Navigation · Experimental",
-      "description": "Экспериментальные Яндекс Карты для BMW iDrive 7. Нужны API-ключи. Проверка на автомобиле не выполнена.",
-      "version": "0.2.1",
+      "description": "Экспериментальные карты Яндекса без CarPlay: адреса, маршрут, штатный GPS. Нужны собственные API-ключи. Не испытано на автомобиле.",
+      "author": "MGU Yandex Navigation contributors",
       "mguHmi": [
         "ID7"
       ],
+      "uninstallable": true,
       "requires": {
         "mgu-deploy": "0.8.27",
         "mgu-uplink": "0.7.13"
       },
-      "uninstallable": true,
       "artifact": {
-        "name": "aren_yandex@0.2.1.tgz",
-        "size": 1329996,
-        "sha256": "d27f11800bbcd8f081d2bb638ed2a326258ae07eed8403f2f90365dd4c8f01d5",
-        "url": "https://raw.githubusercontent.com/arenaren999/mgu-yandex-navigation/main/aren_yandex@0.2.1.tgz"
+        "name": "aren_yandex@0.2.2.tgz",
+        "url": "https://raw.githubusercontent.com/arenaren999/mgu-yandex-navigation/main/aren_yandex@0.2.2.tgz",
+        "size": 1330349,
+        "sha256": "efce5ed89a2fab966c667c6a98c150118415dc253df3d00301acd25705f82b58"
       }
     }
   ]
