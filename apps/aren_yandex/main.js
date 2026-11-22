@@ -5,7 +5,12 @@ const {Keys}=require('./config'),{spell}=require('./speller'),geo=require('./geo
 async function start(ctx) {
     const keys=new Keys(ctx.dataDir),position=new Position(),provider=new Provider(keys.values),m=new Model(provider,position);
     const ui=ctx.ui,log=ctx.log;let inputBusy=false;
-    const show=()=>ui.open('MAIN');
+    const open=async(name)=>{
+        if(ctx.display&&ctx.display.navigateTo)ctx.display.navigateTo(name);
+        try{return await ui.open(name);}
+        catch(e){if(ctx.display&&ctx.display.navigateTo)ctx.display.navigateTo('MAIN');throw e;}
+    };
+    const show=()=>open('MAIN');
     const updateMenu=()=>Promise.all([
         ui.text('KEY_STATIC','Карта: '+(keys.values.staticKey?'ключ сохранён':'ввести ключ')),
         ui.text('KEY_GEOCODER','Поиск: '+(keys.values.geocoderKey?'ключ сохранён':'ввести ключ')),
@@ -22,13 +27,13 @@ async function start(ctx) {
     bind('BTN_SEARCH',()=>input('Адрес или широта,долгота',async text=>{
         const results=await m.search(text);if(!results||!results.length){await show();return;}
         for(let i=0;i<5;i++){await ui.text('RESULT_'+i,results[i]?results[i].title:'');await ui.visible('RESULT_'+i,!!results[i]);}
-        await ui.open('RESULTS');
+        await open('RESULTS');
     }));
     for(let i=0;i<5;i++)bind('RESULT_'+i,()=>{if(m.places[i])m.select(m.places[i]);return show();});
     bind('BTN_ROUTE',()=>m.buildRoute());
     bind('BTN_LOCATE',()=>m.locate());
     bind('BTN_PLUS',()=>m.setZoom(1));bind('BTN_MINUS',()=>m.setZoom(-1));
-    bind('BTN_MENU',async()=>{await updateMenu();await ui.open('MENU');});
+    bind('BTN_MENU',async()=>{await updateMenu();await open('MENU');});
     const keyRows=[['KEY_STATIC','staticKey','Ключ Static API'],['KEY_GEOCODER','geocoderKey','Ключ Геокодера'],['KEY_ROUTER','routerKey','Ключ маршрутов']];
     keyRows.forEach(row=>bind(row[0],()=>input(row[2],async text=>{
         keys.set(row[1],text);provider.keys=keys.values;m.invalidate();m.mapDue=0;m.status='Ключ сохранён на MGU';await updateMenu();await show();
@@ -39,7 +44,7 @@ async function start(ctx) {
     bind('CLEAR_ROUTE',()=>{m.clearRoute();return show();});
     bind('PAUSE',()=>{m.enabled=!m.enabled;m.invalidate();m.status=m.enabled?'Загрузка карт включена':'Загрузка карт на паузе';return show();});
     bind('BUDGET',()=>{m.resetBudget();return show();});
-    bind('ERASE_KEYS',()=>ui.open('CONFIRM_ERASE'));
+    bind('ERASE_KEYS',()=>open('CONFIRM_ERASE'));
     bind('ERASE_YES',()=>{keys.clear();provider.keys=keys.values;m.clearRoute();m.searchEpoch++;m.searchBusy=false;m.places=[];m.destination=null;m.manual=null;m.status='Ключи удалены';return show();});
     bind('ERASE_NO',()=>show());
     const options=()=>{m.theme=ctx.settings.get('mapTheme');m.interval=ctx.settings.get('refreshSeconds')*1000;m.invalidate();};
