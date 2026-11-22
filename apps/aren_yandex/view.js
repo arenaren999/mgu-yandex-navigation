@@ -15,11 +15,11 @@ function draw(cv,m,now,record) {
         cv.text('MGU Yandex Navigation',650,160,40,'#edf4fc',{align:'center'});
         cv.text(m.mapBusy?'Загрузка карты…':'Карты на экране BMW',650,225,30,'#94a9bd',{align:'center'});
         cv.text(m.origin()||m.destination?'Проверьте ключ Static API в меню':'Ожидание GPS или выбор адреса',650,285,25,'#c7d6e4',{align:'center'});
-        cv.text('Без CarPlay · экспериментальная версия 0.2.1',650,355,23,'#8296ac',{align:'center'});
+        cv.text('Без CarPlay · экспериментальная версия 0.2.2',650,355,23,'#8296ac',{align:'center'});
     }
     const x=1324;
     cv.text('MGU / YANDEX',x,38,22,'#55b6ff');
-    cv.text('0.2.1 · ИСПЫТАНИЯ',x,69,18,'#d7ad63');
+    cv.text('0.2.2 · ИСПЫТАНИЯ',x,69,18,'#d7ad63');
     cv.fillRect(x,88,252,2,'#344454');
     cv.text(m.manual?'НАЧАЛО ВРУЧНУЮ':'КООРДИНАТЫ',x,124,18,'#8296ac');
     const pos=m.origin();
