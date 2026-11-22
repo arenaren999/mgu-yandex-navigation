@@ -30,7 +30,11 @@ const tar=require(js+'/tar'),sources=require(js+'/sources'),catalog=require(js+'
     }finally{fs.unlinkSync(mounts);}
     const planned=catalog.plan([{entry:c,source:discovered[0].id}],[]);
     assert.strictEqual(planned[0].status,'available');
-    const src=await sources.reader({type:'folder',path:root},{}).catalog();
+    const fileCatalog=await sources.reader({type:'folder',path:root},{}).catalog();
+    assert.strictEqual(fileCatalog.mode,'catalog');
+    assert.strictEqual(fileCatalog.components[0].id,'aren_yandex');
+    // The folder reader prefers catalog.json when both files exist. GitHub Branch uses mgu-repo.json.
+    const src=await sources.repoCatalog(rel=>Promise.resolve().then(()=>fs.readFileSync(path.resolve(root,rel))),null,null);
     assert.strictEqual(src.components.length,1,JSON.stringify(src.skipped));
     assert(!src.skipped||src.skipped.length===0,JSON.stringify(src.skipped));
     assert(src.components[0].script.python==='tools/build.py');
