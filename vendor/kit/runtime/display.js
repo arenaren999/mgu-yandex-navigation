@@ -116,8 +116,17 @@ class Display {
         const canvasScreens = (spec.screens || []).filter((s) => s.kind === 'canvas');
         this.screen = canvasScreens[0] || null;
         if (!this.screen) return;
+        // HMI can retain MAIN as visible underneath another app state.
+        this.otherScreens = (spec.screens || []).map((item) => item.name).filter((name) => name !== this.screen.name);
+        this.navTarget = null;
         this.ui.onVisible((name, v) => {
             if (name === 'SETTINGS') { this._syncVisible(); if (!v) this._lost(); return; }
+            if (this.otherScreens.indexOf(name) >= 0) {
+                // Stop the canvas overlay over MENU, RESULTS and confirmation states.
+                if (v || this.navTarget === name) this.navTarget = null;
+                this._syncVisible();
+                return;
+            }
             if (name !== this.screen.name) return;
             if (v) this.barOff = 0;                   // the HMI builds the screen afresh
             if (!v) this.closeSheet();
@@ -644,8 +653,18 @@ class Display {
 
     /** the screen is up and not covered by an HMI popup */
     _shown() {
-        // the HMI's settings screen over ours (no drawn settings: another renderer, software): it shows, not our picture
-        return this.ui.isVisible(this.screen.name) && !this.ui.isVisible('SETTINGS') && (!this.ui.hasFocus || this.ui.hasFocus(this.screen.name));
+        // MAIN can remain on the BMW application stack beneath a menu.
+        // Its GPU surface must not hide native RHMI settings or address results.
+        return !this.navTarget && this.ui.isVisible(this.screen.name) &&
+            !this.ui.isVisible('SETTINGS') &&
+            !this.otherScreens.some((name) => this.ui.isVisible(name)) &&
+            (!this.ui.hasFocus || this.ui.hasFocus(this.screen.name));
+    }
+
+    /** Suppress the map renderer immediately when navigation to another RHMI state begins. */
+    navigateTo(name) {
+        this.navTarget = name === this.screen.name ? null : name;
+        this._syncVisible();
     }
 
     _syncVisible() {
