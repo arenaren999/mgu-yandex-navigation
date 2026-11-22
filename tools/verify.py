@@ -30,9 +30,9 @@ def main():
     for n in (1, 2):
         builds.append(json.loads(run('build-' + str(n), [sys.executable, 'tools/build.py']).splitlines()[-1]))
     assert builds[0]['sha256'] == builds[1]['sha256'], 'Non-reproducible package'
-    report['artifact'] = {'name': 'aren_yandex@0.2.1.tgz', 'bytes': builds[-1]['bytes'],
+    report['artifact'] = {'name': 'aren_yandex@0.2.2.tgz', 'bytes': builds[-1]['bytes'],
                           'sha256': builds[-1]['sha256'], 'twoBuildsIdentical': True}
-    for name, script in [('core', 'tests/run.js'), ('transport', 'tests/transport.js'), ('ui', 'tests/ui.js')]:
+    for name, script in [('core', 'tests/run.js'), ('transport', 'tests/transport.js'), ('ui', 'tests/ui.js'), ('visibility', 'tests/visibility.js')]:
         report[name] = json.loads(run(name, [args.node, script]).splitlines()[-1])
     if args.store:
         report['store'] = json.loads(run('store', [args.node, 'tests/store.js', str(Path(args.store).resolve())]).splitlines()[-1])
