@@ -52,7 +52,8 @@ jobs:
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add catalog.json aren_yandex@0.2.2.tgz
+          git add catalog.json
+          git add -f aren_yandex@0.2.2.tgz
           if ! git diff --cached --quiet; then
             git commit -m "build: publish verified MGU Yandex 0.2.2 package"
             git push origin HEAD:main
