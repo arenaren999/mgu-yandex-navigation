@@ -44,7 +44,7 @@ def main():
     report['packagedJavascriptSyntaxChecked'] = len(files)
     print('packaged Node syntax: PASS (' + str(len(files)) + ')', flush=True)
     run('preview', [args.node, 'tools/preview.js'])
-    artifact = ROOT / 'dist/aren_yandex@0.2.1.tgz'
+    artifact = ROOT / 'dist/aren_yandex@0.2.2.tgz'
     with tarfile.open(artifact, 'r:gz') as tf:
         names = tf.getnames()
         assert all(n.startswith('package/') and '..' not in Path(n).parts for n in names)
