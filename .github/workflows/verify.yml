@@ -48,7 +48,7 @@ jobs:
           assert item["artifact"]["size"] == len(data)
           assert item["artifact"]["sha256"] == hashlib.sha256(data).hexdigest()
           item["artifact"]["url"]="https://raw.githubusercontent.com/arenaren999/mgu-yandex-navigation/main/aren_yandex@0.2.2.tgz"
-          Path("catalog.json").write_text(json.dumps(doc,ensure_ascii=False,indent=2)+"\\n")
+          Path("catalog.json").write_text(json.dumps(doc,ensure_ascii=False,indent=2)+"\n")
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
