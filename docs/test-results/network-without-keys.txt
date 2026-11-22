@@ -1,0 +1,23 @@
+{
+  "node": "v8.16.2",
+  "host": "development container",
+  "keyProvided": false,
+  "results": [
+    {
+      "service": "static",
+      "status": "NETWORK",
+      "tls": false
+    },
+    {
+      "service": "geocoder",
+      "status": "NETWORK",
+      "tls": false
+    },
+    {
+      "service": "router",
+      "status": "NETWORK",
+      "tls": false
+    }
+  ],
+  "vehicleTested": false
+}

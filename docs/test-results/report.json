@@ -1,0 +1,50 @@
+{
+  "testedAtMoscow": "2026-11-22T22:36:25.185523+03:00",
+  "vehicleTested": false,
+  "realBmwSdkTested": false,
+  "authenticatedYandexApisTested": false,
+  "node": "v22.16.0",
+  "artifact": {
+    "name": "aren_yandex@0.2.1.tgz",
+    "bytes": 1329996,
+    "sha256": "d27f11800bbcd8f081d2bb638ed2a326258ae07eed8403f2f90365dd4c8f01d5",
+    "twoBuildsIdentical": true
+  },
+  "core": {
+    "suite": "core",
+    "node": "v22.16.0",
+    "passed": 34,
+    "failed": [],
+    "total": 34,
+    "vehicleTested": false
+  },
+  "transport": {
+    "suite": "HTTPS boundary with mock transport",
+    "node": "v22.16.0",
+    "passed": 7,
+    "liveTLSVerified": false
+  },
+  "ui": {
+    "suite": "UI with mock BMW SDK/signals",
+    "node": "v22.16.0",
+    "smokePassed": true,
+    "frames": 2,
+    "handlers": 23,
+    "vehicleTested": false
+  },
+  "store": {
+    "executed": false
+  },
+  "packagedJavascriptSyntaxChecked": 39,
+  "archive": {
+    "files": 109,
+    "safePaths": true,
+    "sdkIncluded": false,
+    "keysIncluded": false
+  },
+  "notes": [
+    "Mock BMW SDK/signals in UI tests; no BMW car connected.",
+    "MGU Store reader not re-tested in this run; package format and hashes checked.",
+    "No live authenticated Yandex request, TLS-on-MGU, or vehicle GPS tested."
+  ]
+}

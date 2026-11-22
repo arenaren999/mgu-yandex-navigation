@@ -1,0 +1,10 @@
+dist/
+*.tgz
+*.mgu
+node_modules/
+__pycache__/
+*.pyc
+yandex-keys.json
+settings.json
+*.log
+test-results/

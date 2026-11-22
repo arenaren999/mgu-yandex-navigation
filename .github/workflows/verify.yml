@@ -1,0 +1,35 @@
+name: Build experimental MGU package
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  host-checks:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: robertnisipeanu/mgu-store
+          ref: 83da03a115fb4073e791413066fd60da607e1932
+          path: upstream-store
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: 8.16.2
+      - name: Build twice, test Node 8 and inspect with Store
+        run: python3 tools/verify.py --store upstream-store
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: MGU-Yandex-Navigation-experimental
+          path: |
+            dist/aren_yandex@0.2.1.tgz
+            dist/catalog.json
+            dist/SHA256SUMS
+            dist/usb
+            docs/test-results

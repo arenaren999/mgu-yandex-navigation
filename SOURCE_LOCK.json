@@ -1,0 +1,20 @@
+{
+  "project": "MGU Yandex Navigation",
+  "version": "0.2.1",
+  "runtime": {
+    "repository": "https://github.com/cauliflowermossgrape/idrive7-apps",
+    "commit": "e2716cdd8d779141262a078fe192cade6cf26f4b"
+  },
+  "store": {
+    "repository": "https://github.com/robertnisipeanu/mgu-store",
+    "commit": "83da03a115fb4073e791413066fd60da607e1932"
+  },
+  "gps_protocol_reference": {
+    "repository": "https://github.com/nhocleopro/hud-widgets",
+    "commit": "e9c3e695f2c18f2f2e03eecddd661144da38eb5b"
+  },
+  "tested_node": "v8.16.2-linux-x64",
+  "bmw_sdk_included": false,
+  "api_credentials_included": false,
+  "vehicle_tested": false
+}

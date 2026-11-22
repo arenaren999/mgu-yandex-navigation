@@ -1,0 +1,5 @@
+{
+  "name":"mgu-yandex-navigation-development","version":"0.2.1","private":true,
+  "scripts":{"test":"node tests/run.js && node tests/transport.js","test:ui":"node tests/ui.js","build":"python3 tools/build.py","preview":"node tools/preview.js"},
+  "license":"GPL-3.0-or-later","engines":{"node":">=8.16.2"}
+}

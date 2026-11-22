@@ -1,0 +1,8 @@
+PASS successful bounded body
+PASS HTTP redirect is refused
+PASS large Content-Length refused
+PASS stream over limit refused
+PASS stalled response hits overall deadline
+PASS certificate failure stays a TLS error
+PASS truncated response refused
+{"suite":"HTTPS boundary with mock transport","node":"v22.16.0","passed":7,"liveTLSVerified":false}

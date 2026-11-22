@@ -1,0 +1,35 @@
+PASS coordinates: explicit lat/lon, invalid values rejected
+PASS geodesic distance and route progress
+PASS static map uses lon,lat; routing uses lat,lon
+PASS search text is URL encoded and key mandatory
+PASS overview pads bounds; dateline not silently inverted
+PASS route simplification retains endpoints within URL budget
+PASS GPS requires affirmative validity; invalid update clears previous fix
+PASS GPS rejects out of range, numeric strings and stale samples
+PASS GPS stale clock and vehicle speed have separate freshness
+PASS GPS subscribes only to documented read fields/instances
+PASS route parses all legs and deduplicates join coordinate
+PASS route refuses failed legs, malformed coordinates and missing geometry
+PASS geocoder retains precise addresses and swaps lon/lat response
+PASS PNG decodes truecolour and RGBA with proper alpha compositing
+PASS PNG supports indexed colours at 1/2/4/8 bits
+PASS PNG supports grayscale and grayscale+alpha
+PASS PNG filters: sub, up, average, Paeth
+PASS PNG rejects CRC corruption, truncation, bad filter and oversize
+PASS PNG rejects decompression bomb beyond declared dimensions
+PASS no map request without position or explicit destination
+PASS coordinate destination works with no geocoder key or network
+PASS map requests stop while hidden or paused
+PASS map throttle and stationary cache reduce network calls
+PASS zoom change fetches a fresh map immediately without waiting for throttle
+PASS static map selects documented driving map style
+PASS old map response cannot overwrite a changed destination
+PASS map failure clears busy state and enforces 429 cooldown
+PASS route refuses missing GPS; manual origin is explicit
+PASS discard route response for previous destination
+PASS cancelled route cannot resurrect after clear
+PASS direct coordinate search invalidates old network search
+PASS per-session budget stops requests
+PASS secrets stored with mode 0600, survive restart and can be erased
+PASS network endpoint allowlist refuses redirects to arbitrary hosts
+{"suite":"core","node":"v22.16.0","passed":34,"failed":[],"total":34,"vehicleTested":false}

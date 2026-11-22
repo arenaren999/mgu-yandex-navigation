@@ -1,0 +1,1 @@
+{"artifact": "/mnt/data/mgu-yandex-work/MGU-Yandex-Navigation-0.2.1/SOURCE/dist/aren_yandex@0.2.1.tgz", "bytes": 1329996, "sha256": "d27f11800bbcd8f081d2bb638ed2a326258ae07eed8403f2f90365dd4c8f01d5", "screens": ["MAIN", "RESULTS", "MENU", "CONFIRM_ERASE"], "sdk": "resolved by MGU Store on the car", "vehicle_tested": false}

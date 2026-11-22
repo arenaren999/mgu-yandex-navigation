@@ -1,0 +1,1 @@
+{"suite":"UI with mock BMW SDK/signals","node":"v22.16.0","smokePassed":true,"frames":2,"handlers":23,"vehicleTested":false}

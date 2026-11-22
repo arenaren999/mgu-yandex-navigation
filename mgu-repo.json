@@ -1,0 +1,10 @@
+{
+  "schema":1,
+  "components":[{
+    "id":"aren_yandex","kind":"app","path":"apps/aren_yandex",
+    "title":"MGU Yandex Navigation · Experimental","version":"0.2.1","mguHmi":["ID7"],
+    "description":"Карты, адреса и маршрут без CarPlay. Нужны ключи Яндекса. Испытания на автомобиле не выполнены.",
+    "requires":{"mgu-deploy":"0.8.27","mgu-uplink":"0.7.13"},
+    "build":{"python":"tools/build.py","args":["--id","{id}","--version","{version}"],"shared":["vendor","licenses","LICENSE","THIRD_PARTY_NOTICES.md"]}
+  }]
+}
